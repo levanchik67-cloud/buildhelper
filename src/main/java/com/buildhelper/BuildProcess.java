@@ -2,6 +2,7 @@ package com.buildhelper;
 
 import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
@@ -51,7 +52,7 @@ public class BuildProcess {
     }
 
     private boolean handleMoving(MinecraftClient client, SchematicBlock target) {
-        PlayerEntity player = client.player;
+        ClientPlayerEntity player = client.player;
         Vec3d targetVec = Vec3d.ofCenter(target.pos);
         double distance = player.getPos().distanceTo(targetVec);
         if (lastTarget != null && lastTarget.equals(target.pos)) stuckTicks++;
@@ -65,7 +66,7 @@ public class BuildProcess {
     }
 
     private void simpleMoveTo(MinecraftClient client, BlockPos target) {
-        PlayerEntity player = client.player;
+        ClientPlayerEntity player = client.player;
         Vec3d targetVec = Vec3d.ofCenter(target);
         Vec3d dir = targetVec.subtract(player.getPos()).normalize();
         client.options.forwardKey.setPressed(true);
@@ -79,7 +80,7 @@ public class BuildProcess {
     private boolean handlePlacing(MinecraftClient client, SchematicBlock target) {
         if (stateTimer < INTERACT_DELAY) return true;
         World world = client.player.getWorld();
-        PlayerEntity player = client.player;
+        ClientPlayerEntity player = client.player;
         BlockState existing = world.getBlockState(target.pos);
         if (existing.equals(target.state)) { advanceBlock(client); return true; }
         if (!existing.isAir() && !existing.equals(target.state)) {
@@ -188,7 +189,7 @@ public class BuildProcess {
     }
 
     private void openChestAndTakeItems(MinecraftClient client, BlockPos chestPos, Item item) {
-        PlayerEntity player = client.player;
+        ClientPlayerEntity player = client.player;
         if (client.interactionManager != null)
             client.interactionManager.interactBlock(player, Hand.MAIN_HAND,
                 new BlockHitResult(Vec3d.ofCenter(chestPos), Direction.UP, chestPos, false));
@@ -198,7 +199,7 @@ public class BuildProcess {
                 if (!inv.getStack(i).isEmpty() && inv.getStack(i).getItem().equals(item))
                     client.interactionManager.clickSlot(chest.syncId, i, 0,
                         net.minecraft.screen.slot.SlotActionType.QUICK_MOVE, player);
-            player.closeHandledScreen();
+            client.setScreen(null);
         }
     }
 
@@ -207,4 +208,4 @@ public class BuildProcess {
         if (client.player != null) client.options.forwardKey.setPressed(false);
         BaritoneIntegration.stop();
     }
-}
+    }
