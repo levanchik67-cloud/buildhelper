@@ -12,20 +12,19 @@ public class SchematicReader {
     public static List<BuildProcess.SchematicBlock> getBlocksToPlace(MinecraftClient client) {
         List<BuildProcess.SchematicBlock> blocks = new ArrayList<>();
         try {
-            List<SchematicPlacement> placements = DataManager.getInstance()
-                .getSchematicPlacementManager().getAllSchematicsPlacements();
+            List<SchematicPlacement> placements = DataManager.getSchematicPlacementManager()
+                .getAllSchematicPlacements();
             if (placements.isEmpty()) return blocks;
             for (SchematicPlacement placement : placements) {
                 LitematicaSchematic schematic = placement.getSchematic();
                 if (schematic == null) continue;
-                var regions = placement.getSubRegions();
-                for (var entry : regions.entrySet()) {
-                    var subRegion = entry.getValue();
+                var regions = placement.getRelativeSubRegionPlacements();
+                for (var subRegion : regions) {
                     BlockPos origin = subRegion.getPos();
                     var sWorld = schematic.getSchematicWorld();
-                    int sizeX = schematic.getSize().getX();
-                    int sizeY = schematic.getSize().getY();
-                    int sizeZ = schematic.getSize().getZ();
+                    int sizeX = schematic.getWidth();
+                    int sizeY = schematic.getHeight();
+                    int sizeZ = schematic.getLength();
                     for (BlockPos lp : BlockPos.iterate(BlockPos.ORIGIN,
                         new BlockPos(sizeX - 1, sizeY - 1, sizeZ - 1))) {
                         BlockState state = sWorld.getBlockState(lp);
