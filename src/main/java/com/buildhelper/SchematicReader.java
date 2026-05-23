@@ -3,7 +3,6 @@ package com.buildhelper;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
-import fi.dy.masa.litematica.util.SchematicWorld;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +18,7 @@ public class SchematicReader {
             for (SchematicPlacement placement : placements) {
                 LitematicaSchematic schematic = placement.getSchematic();
                 if (schematic == null) continue;
-                SchematicWorld sWorld = schematic.getSchematicWorld();
+                var sWorld = schematic.getSchematicWorld();
                 BlockPos origin = placement.getOrigin();
                 BlockPos size = schematic.getEnclosingSize();
                 for (int x = 0; x < size.getX(); x++) {
