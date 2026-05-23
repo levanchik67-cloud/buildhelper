@@ -11,13 +11,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: Download Litematica
-        run: |
-          mkdir -p libs
-          wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/U6N2B1Ty/litematica-fabric-1.21-0.19.55.jar"
-      - name: Download Baritone
-        run: |
-          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
