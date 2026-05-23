@@ -17,7 +17,7 @@ jobs:
           wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/fQC1BAi5/litematica-fabric-1.21.4-0.21.6.jar"
       - name: Download Baritone
         run: |
-          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.2.20/baritone-api-fabric-1.2.20.jar
+          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
