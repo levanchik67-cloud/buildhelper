@@ -14,7 +14,7 @@ jobs:
       - name: Download Litematica
         run: |
           mkdir -p libs
-          wget -O libs/litematica.jar https://cdn.modrinth.com/data/6XZiediS/versions/hvLKW3Ii/litematica-fabric-1.21.4-0.21.6.jar
+          wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/fQC1BAi5/litematica-fabric-1.21.4-0.21.6.jar"
       - name: Download Baritone
         run: |
           wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.2.20/baritone-api-fabric-1.2.20.jar
