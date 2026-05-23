@@ -14,21 +14,16 @@ jobs:
       - name: Download Malilib
         run: |
           mkdir -p libs
-          wget -O libs/malilib.jar "https://cdn.modrinth.com/data/GcWjdA9I/versions/ifi4uRpL/malilib-fabric-1.21.4-0.23.5.jar"
-      - name: Download Litematica
-        run: |
-          wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/uH2rrDmL/litematica-fabric-1.21.4-0.21.0.jar"
+          wget -O libs/malilib.jar "https://cdn.modrinth.com/data/GcWjdA9I/versions/KsUV4RUr/malilib-fabric-1.21.4-0.23.0.jar?mr_download_reason=standalone"
       - name: Download Baritone
         run: |
           wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.11
-      - name: Build
-        run: gradle build
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: buildhelper
-          path: build/libs/*.jar
+      - name: Download Baritone
+        run: |
+          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar?mr_download_reason=standalone"
+      - name: Download Baritone
+        run: |
+          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar?mr_download_reason=standalone"
+      - name: Download Baritone
+        run: |
+          wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar?mr_download_reason=standalone"
