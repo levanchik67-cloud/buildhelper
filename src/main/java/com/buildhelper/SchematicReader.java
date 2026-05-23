@@ -23,8 +23,11 @@ public class SchematicReader {
                     var subRegion = entry.getValue();
                     BlockPos origin = subRegion.getPos();
                     var sWorld = schematic.getSchematicWorld();
+                    int sizeX = schematic.getSize().getX();
+                    int sizeY = schematic.getSize().getY();
+                    int sizeZ = schematic.getSize().getZ();
                     for (BlockPos lp : BlockPos.iterate(BlockPos.ORIGIN,
-                        new BlockPos(schematic.getWidth()-1, schematic.getHeight()-1, schematic.getLength()-1))) {
+                        new BlockPos(sizeX - 1, sizeY - 1, sizeZ - 1))) {
                         BlockState state = sWorld.getBlockState(lp);
                         if (state.isAir()) continue;
                         BlockPos worldPos = origin.add(lp);
