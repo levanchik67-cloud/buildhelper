@@ -18,12 +18,10 @@ jobs:
       - name: Download Baritone
         run: |
           wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 9.1.1
+      - name: Setup Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.14
       - name: Build
-        run: gradle build
+        run: ./gradlew build
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
