@@ -14,14 +14,16 @@ jobs:
       - name: Download Litematica
         run: |
           mkdir -p libs
-          wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/fQC1BAi5/litematica-fabric-1.21.4-0.21.6.jar"
+          wget -O libs/litematica.jar "https://cdn.modrinth.com/data/bEpr0Arc/versions/uH2rrDmL/litematica-fabric-1.21.4-0.21.0.jar"
       - name: Download Baritone
         run: |
           wget -O libs/baritone.jar https://github.com/cabaletta/baritone/releases/download/v1.13.1/baritone-api-fabric-1.13.1.jar
-      - name: Setup Gradle Wrapper
-        run: gradle wrapper --gradle-version 8.14
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.11
       - name: Build
-        run: ./gradlew build
+        run: gradle build
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
