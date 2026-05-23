@@ -198,7 +198,7 @@ public class BuildProcess {
                 if (!inv.getStack(i).isEmpty() && inv.getStack(i).getItem().equals(item))
                     client.interactionManager.clickSlot(chest.syncId, i, 0,
                         net.minecraft.screen.slot.SlotActionType.QUICK_MOVE, player);
-            player.closeScreen();
+            player.closeHandledScreen();
         }
     }
 
@@ -207,4 +207,4 @@ public class BuildProcess {
         if (client.player != null) client.options.forwardKey.setPressed(false);
         BaritoneIntegration.stop();
     }
-                                                                             }
+}
