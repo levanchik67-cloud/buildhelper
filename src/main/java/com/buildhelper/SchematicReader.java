@@ -3,6 +3,7 @@ package com.buildhelper;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
+import fi.dy.masa.litematica.util.SchematicWorld;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
@@ -13,25 +14,24 @@ public class SchematicReader {
         List<BuildProcess.SchematicBlock> blocks = new ArrayList<>();
         try {
             List<SchematicPlacement> placements = DataManager.getSchematicPlacementManager()
-                .getAllSchematicPlacements();
+                .getAllPlacements();
             if (placements.isEmpty()) return blocks;
             for (SchematicPlacement placement : placements) {
                 LitematicaSchematic schematic = placement.getSchematic();
                 if (schematic == null) continue;
-                var regions = placement.getRelativeSubRegionPlacements();
-                for (var subRegion : regions) {
-                    BlockPos origin = subRegion.getPos();
-                    var sWorld = schematic.getSchematicWorld();
-                    int sizeX = schematic.getWidth();
-                    int sizeY = schematic.getHeight();
-                    int sizeZ = schematic.getLength();
-                    for (BlockPos lp : BlockPos.iterate(BlockPos.ORIGIN,
-                        new BlockPos(sizeX - 1, sizeY - 1, sizeZ - 1))) {
-                        BlockState state = sWorld.getBlockState(lp);
-                        if (state.isAir()) continue;
-                        BlockPos worldPos = origin.add(lp);
-                        if (client.world.getBlockState(worldPos).equals(state)) continue;
-                        blocks.add(new BuildProcess.SchematicBlock(worldPos, state));
+                SchematicWorld sWorld = schematic.getSchematicWorld();
+                BlockPos origin = placement.getOrigin();
+                BlockPos size = schematic.getEnclosingSize();
+                for (int x = 0; x < size.getX(); x++) {
+                    for (int y = 0; y < size.getY(); y++) {
+                        for (int z = 0; z < size.getZ(); z++) {
+                            BlockPos localPos = new BlockPos(x, y, z);
+                            BlockState state = sWorld.getBlockState(localPos);
+                            if (state.isAir()) continue;
+                            BlockPos worldPos = origin.add(localPos);
+                            if (client.world.getBlockState(worldPos).equals(state)) continue;
+                            blocks.add(new BuildProcess.SchematicBlock(worldPos, state));
+                        }
                     }
                 }
             }
